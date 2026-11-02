@@ -1,0 +1,84 @@
+- heading "Targeting & display behavior" [level=6]
+- button "Widen panel":
+  - generic: Widen panel
+- button "Collapse panel":
+  - generic: Collapse panel
+- button:
+  - generic: Scroll left
+- tablist:
+  - tab "Targeting" [selected]:
+    - generic: Targeting
+  - tab "Display":
+    - generic: Display
+- button:
+  - generic: Scroll right
+- region "Audience":
+  - heading "Audience" [level=2]
+  - generic: Audience
+  - combobox "Audience":
+    - generic: Show to text messaging only subscribers
+- region "URLs":
+  - heading "URLs" [level=2]
+  - paragraph: Use * as a wild card
+  - link "Learn moreOpen in new tab":
+    - /url: https://help.klaviyo.com/hc/en-us/articles/4413544555547#h_01H9NM44JNAY2A50WS1ZD92J3Q
+    - text: Learn more
+    - img "Open in new tab"
+  - generic: Only show on certain URLs
+  - checkbox "Only show on certain URLs" [checked]
+  - generic: Only show on certain URLs
+  - combobox:
+    - generic: Containing
+  - generic: Show when matching or containing
+  - textbox "Show when matching or containing":
+    - /placeholder: /example
+    - text: /qa-b
+  - button "Delete":
+    - generic: Delete
+  - button "Add URL":
+    - generic: Add URL
+  - generic: Don’t show on certain URLs
+  - checkbox "Don’t show on certain URLs" [checked]
+  - generic: Don’t show on certain URLs
+  - combobox:
+    - generic: Containing
+  - generic: Show when matching or containing
+  - textbox "Show when matching or containing":
+    - /placeholder: /example
+    - text: /checkout
+  - button "Delete":
+    - generic: Delete
+  - button "Add URL":
+    - generic: Add URL
+- region "Location":
+  - heading "Location" [level=2]
+  - generic: Show to audience in certain locations
+  - checkbox "Show to audience in certain locations"
+  - generic: Show to audience in certain locations
+  - generic: Don’t show to audience in certain locations
+  - checkbox "Don’t show to audience in certain locations"
+  - generic: Don’t show to audience in certain locations
+- region "UTM parameters":
+  - heading "UTM parameters" [level=2]
+  - generic: Store UTM parameters in shopper’s profile upon consent
+  - checkbox "Store UTM parameters in shopper’s profile upon consent"
+  - generic: Store UTM parameters in shopper’s profile upon consent
+  - generic: Show based on UTM parameters
+  - checkbox "Show based on UTM parameters"
+  - generic: Show based on UTM parameters
+- region "Cart contents":
+  - heading "Cart contents" [level=2]
+  - paragraph: Raise revenue by targeting based on cart contents.
+  - link "Installation instructionsOpen in new tab":
+    - /url: https://help.klaviyo.com/hc/en-us/articles/22173812171291
+    - text: Installation instructions
+    - img "Open in new tab"
+  - generic: Show based on total cart value
+  - checkbox "Show based on total cart value"
+  - generic: Show based on total cart value
+  - generic: Show based on number of items in cart
+  - checkbox "Show based on number of items in cart"
+  - generic: Show based on number of items in cart
+  - generic: Show based on product type in cart
+  - checkbox "Show based on product type in cart"
+  - generic: Show based on product type in cart

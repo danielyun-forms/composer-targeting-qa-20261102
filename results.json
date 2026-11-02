@@ -1,0 +1,716 @@
+{
+  "runId": "composer-targeting-20261102",
+  "startedAt": "2026-11-02T18:06:01.327706+00:00",
+  "testDate": "2026-11-02",
+  "sourceSheet": "https://docs.google.com/spreadsheets/d/1wxZA0GOTft8CEw4tqRvVqd92C0UehtM5n29gI_OFF7o/edit",
+  "sourceTab": "Targeting and Display",
+  "account": "WeAFEE",
+  "environment": "Hosted app",
+  "cases": [
+    {
+      "id": "TD-01",
+      "sourceRow": 2,
+      "title": "Audience - Show to all audience members",
+      "category": "Audience",
+      "section": "Targetting",
+      "checklistNotes": "Already partly covered. Isolate: no list/segment reference involved, so it should pass where segment targeting fails.",
+      "status": "pass",
+      "checks": [],
+      "observation": "Composer-created form was saved as draft. Designer shows Show to all audience members without a list or segment condition.",
+      "evidence": [
+        "00-create-proposal",
+        "00-baseline-targeting"
+      ],
+      "checkedAt": "2026-11-02T18:08:10.104Z"
+    },
+    {
+      "id": "TD-02",
+      "sourceRow": 3,
+      "title": "Audience - Show to any existing profile",
+      "category": "Audience",
+      "section": "Targetting",
+      "checklistNotes": "Enum-only change, no entity id. Pairs with the segment case to separate enum writes from id resolution.",
+      "status": "pass",
+      "checks": [],
+      "observation": "Composer changed Audience to any existing profile; Update form persisted the exact setting in the draft Designer.",
+      "evidence": [
+        "TD-02-before",
+        "TD-02-proposal",
+        "TD-02-after"
+      ],
+      "checkedAt": "2026-11-02T18:11:38.407Z"
+    },
+    {
+      "id": "TD-03",
+      "sourceRow": 4,
+      "title": "Audience - Show to email only subscribers",
+      "category": "Audience",
+      "section": "Targetting",
+      "checklistNotes": "Enum-only.",
+      "status": "pass",
+      "checks": [],
+      "observation": "Email-only subscribers persisted in Designer after applying Composer proposal.",
+      "evidence": [
+        "TD-03-before",
+        "TD-03-proposal",
+        "TD-03-after"
+      ],
+      "checkedAt": "2026-11-02T18:12:24.558Z"
+    },
+    {
+      "id": "TD-04",
+      "sourceRow": 5,
+      "title": "Audience - Show to text messaging only subscribers",
+      "category": "Audience",
+      "section": "Targetting",
+      "checklistNotes": "Enum-only. Check it does not silently require an SMS-consented list.",
+      "status": "pass",
+      "checks": [],
+      "observation": "SMS-only audience persisted in Designer with no list/segment conditions or SMS-list requirement. An earlier transient rejection recovered; the final saved confirmation is the verdict.",
+      "evidence": [
+        "TD-04-before",
+        "TD-04-confirm-after"
+      ],
+      "checkedAt": "2026-11-02T18:21:24.401Z"
+    },
+    {
+      "id": "TD-05",
+      "sourceRow": 6,
+      "title": "Audience - Show to specific profiles in a list or segment",
+      "category": "Audience",
+      "section": "Targetting",
+      "checklistNotes": "KNOWN FAIL. Requires a real list/segment id. Confirm the agent resolves the name to an id rather than inventing one, and that a bad id is rejected with a readable error.",
+      "status": "pass",
+      "checks": [],
+      "observation": "Composer resolved Email List by name to WATtbi; saved Designer confirms specific-profile inclusion. Unknown ID QA_NO_SUCH_LIST_20261102 was rejected with readable \u201cnot found in this account\u201d explanation and Email List stayed unchanged.",
+      "evidence": [
+        "TD-05-before",
+        "TD-05-proposal",
+        "TD-05-after",
+        "TD-05-invalid-after"
+      ],
+      "checkedAt": "2026-11-02T18:16:08.282Z"
+    },
+    {
+      "id": "TD-06",
+      "sourceRow": 7,
+      "title": "Include certain lists and segments",
+      "category": "Audience",
+      "section": "Targetting",
+      "checklistNotes": "Same id-resolution class. Test with 1 list, then 2+, then a segment and a list together.",
+      "status": "pass",
+      "checks": [],
+      "observation": "Saved Designer verified one list, two lists (Email List + Preview List), then a list plus resolved New Subscribers segment. Composer preserved both selected entries.",
+      "evidence": [
+        "TD-05-after",
+        "TD-06-two-lists-after",
+        "TD-06-after"
+      ],
+      "checkedAt": "2026-11-02T18:18:05.790Z"
+    },
+    {
+      "id": "TD-07",
+      "sourceRow": 8,
+      "title": "Exclude certain lists and segments",
+      "category": "Audience",
+      "section": "Targetting",
+      "checklistNotes": "As above. Also test include and exclude set to the SAME list - should be rejected or warned, not silently saved.",
+      "status": "fail",
+      "checks": [],
+      "observation": "One exclusion and three exclusions (two lists plus a segment) persisted correctly. However, Composer accepted and saved Email List as both included and excluded, reporting preview validation with no alerts rather than warning or rejecting the contradictory audience.",
+      "evidence": [
+        "TD-07-one-after",
+        "TD-07-multiple-after",
+        "TD-07-conflict-after"
+      ],
+      "checkedAt": "2026-11-02T18:20:23.090Z"
+    },
+    {
+      "id": "TD-08",
+      "sourceRow": 9,
+      "title": "Only show on certain URLs",
+      "category": "URLs",
+      "section": "Targetting",
+      "checklistNotes": "KNOWN FAIL. Re-test after a fix and record the actual encoded value written vs expected.",
+      "status": "partial",
+      "checks": [],
+      "observation": "URL include persisted exactly as requested in saved Designer: Exactly matching https://example.com/qa-a plus Containing /qa-b. The checklist\u2019s raw encoded payload comparison was not inspected in this browser-only run.",
+      "evidence": [
+        "TD-08-before",
+        "TD-08-after"
+      ],
+      "checkedAt": "2026-11-02T18:22:15.071Z"
+    },
+    {
+      "id": "TD-09",
+      "sourceRow": 10,
+      "title": "Don't show on certain URLs",
+      "category": "URLs",
+      "section": "Targetting",
+      "checklistNotes": "Untested. Same shape as the known failure - likely fails the same way.",
+      "status": "pass",
+      "checks": [],
+      "observation": "Saved Designer enabled exclusion with Containing /checkout while preserving both include rules.",
+      "evidence": [
+        "TD-08-before",
+        "TD-08-after"
+      ],
+      "checkedAt": "2026-11-02T18:22:15.072Z"
+    },
+    {
+      "id": "TD-10",
+      "sourceRow": 11,
+      "title": "URL rule - match type variants",
+      "category": "URLs",
+      "section": "Targetting",
+      "checklistNotes": "Exercise each operator (exact / contains / starts with / regex if present). Operator is the most likely place for a case or spelling mismatch.",
+      "status": "pass",
+      "checks": [],
+      "observation": "Both available operators, Exactly matching and Containing, were written correctly. Designer dropdown contains only these two; starts-with and regex are not offered.",
+      "evidence": [
+        "TD-08-after",
+        "TD-10-operators"
+      ],
+      "checkedAt": "2026-11-02T18:22:15.074Z"
+    },
+    {
+      "id": "TD-11",
+      "sourceRow": 12,
+      "title": "URL rule - multiple rows",
+      "category": "URLs",
+      "section": "Targetting",
+      "checklistNotes": "Add 2+ URL rules in one request. Checks the agent appends rather than replacing row 0.",
+      "status": "pass",
+      "checks": [],
+      "observation": "Two include URL rows were added in one prompt and both persisted, alongside a separate exclusion.",
+      "evidence": [
+        "TD-08-before",
+        "TD-08-after"
+      ],
+      "checkedAt": "2026-11-02T18:22:15.075Z"
+    },
+    {
+      "id": "TD-12",
+      "sourceRow": 13,
+      "title": "URL rule - remove one row of several",
+      "category": "URLs",
+      "section": "Targetting",
+      "checklistNotes": "Deletion by JSON Patch index. Watch for off-by-one or removal of the wrong row.",
+      "status": "pass",
+      "checks": [],
+      "observation": "Removed only exact qa-a include row; persisted Designer retained /qa-b inclusion and /checkout exclusion. A stale conversation required refresh before the latest proposal became available.",
+      "evidence": [
+        "TD-12-before",
+        "TD-12-after"
+      ],
+      "checkedAt": "2026-11-02T18:24:25.469Z"
+    },
+    {
+      "id": "TD-13",
+      "sourceRow": 14,
+      "title": "Show to audience in certain locations",
+      "category": "Location",
+      "section": "Targetting",
+      "checklistNotes": "Untested. Country vs region vs city granularity - check which the encoded form accepts.",
+      "status": "pass",
+      "checks": [],
+      "observation": "United States and Canada inclusion persisted. For Boston, Massachusetts, Composer explained that city/state targeting is unsupported (countries and continent groups only) and left saved countries unchanged. Raw serialization was not inspected.",
+      "evidence": [
+        "TD-13-before",
+        "TD-13-locations",
+        "TD-13-granularity-after"
+      ],
+      "checkedAt": "2026-11-02T18:28:20.652Z"
+    },
+    {
+      "id": "TD-14",
+      "sourceRow": 15,
+      "title": "Don't show to audience in certain locations",
+      "category": "Location",
+      "section": "Targetting",
+      "checklistNotes": "Untested.",
+      "status": "pass",
+      "checks": [],
+      "observation": "France exclusion persisted while United States and Canada inclusions remained selected.",
+      "evidence": [
+        "TD-13-before",
+        "TD-13-locations"
+      ],
+      "checkedAt": "2026-11-02T18:26:55.576Z"
+    },
+    {
+      "id": "TD-15",
+      "sourceRow": 16,
+      "title": "Location - ambiguous place name",
+      "category": "Location",
+      "section": "Targetting",
+      "checklistNotes": "Ask for a city that exists in several countries. The agent should disambiguate, not guess.",
+      "status": "pass",
+      "checks": [],
+      "observation": "For ambiguous Springfield, Composer did not guess a country or save a rule. It explained that city targeting is unsupported and preserved the existing countries. No disambiguation is needed for an unsupported granularity.",
+      "evidence": [
+        "TD-15-before",
+        "TD-15-after"
+      ],
+      "checkedAt": "2026-11-02T18:29:40.307Z"
+    },
+    {
+      "id": "TD-16",
+      "sourceRow": 17,
+      "title": "Store UTM parameters in shopper's profile upon consent",
+      "category": "UTM parameters",
+      "section": "Targetting",
+      "checklistNotes": "Untested. Boolean toggle - cheapest possible case, so a failure here points at the patch path itself.",
+      "status": "pass",
+      "checks": [],
+      "observation": "UTM storage upon consent was enabled by Composer and confirmed checked in the saved Designer.",
+      "evidence": [
+        "TD-16-before",
+        "TD-16-utm"
+      ],
+      "checkedAt": "2026-11-02T18:32:05.316Z"
+    },
+    {
+      "id": "TD-17",
+      "sourceRow": 18,
+      "title": "Show based on UTM parameters",
+      "category": "UTM parameters",
+      "section": "Targetting",
+      "checklistNotes": "Untested. Needs key and value pairs; check an empty value is rejected.",
+      "status": "fail",
+      "checks": [],
+      "observation": "Composer explicitly could not configure utm_source=qa_composer because its editing tools do not expose UTM conditions. Saved Designer shows Show based on UTM parameters still off. Empty-value validation cannot be exercised through Composer while this setting is unsupported.",
+      "evidence": [
+        "TD-16-before",
+        "TD-16-utm"
+      ],
+      "checkedAt": "2026-11-02T18:32:05.317Z"
+    },
+    {
+      "id": "TD-18",
+      "sourceRow": 19,
+      "title": "Show based on total cart value",
+      "category": "Cart contents",
+      "section": "Targetting",
+      "checklistNotes": "Untested. Needs onsite cart data to verify at runtime, but the encoded write can be checked without it.",
+      "status": "pass",
+      "checks": [],
+      "observation": "Saved Designer shows cart value greater than 50. Cart runtime data was not required for the settings write; live shopper evaluation was not tested.",
+      "evidence": [
+        "TD-18-before",
+        "TD-18-after"
+      ],
+      "checkedAt": "2026-11-02T18:33:59.863Z"
+    },
+    {
+      "id": "TD-19",
+      "sourceRow": 20,
+      "title": "Show based on number of items in cart",
+      "category": "Cart contents",
+      "section": "Targetting",
+      "checklistNotes": "Untested. Try a non-integer and a negative number - both should be rejected.",
+      "status": "fail",
+      "checks": [],
+      "observation": "Valid >2 saved. Fractional 2.5 was rejected with a whole-number explanation. Negative -1 was accepted with no alerts and persisted in Designer, violating the checklist\u2019s required rejection.",
+      "evidence": [
+        "TD-18-after",
+        "TD-19-negative-after",
+        "TD-19-decimal-after"
+      ],
+      "checkedAt": "2026-11-02T18:37:07.710Z"
+    },
+    {
+      "id": "TD-20",
+      "sourceRow": 21,
+      "title": "Show based on product type in cart",
+      "category": "Cart contents",
+      "section": "Targetting",
+      "checklistNotes": "Untested. Likely needs a catalog reference; same id-resolution class as segments.",
+      "status": "pass",
+      "checks": [],
+      "observation": "Composer rejected unsupported contains semantics, then saved the supported exact product condition. Designer shows product-type targeting enabled, type Categories, value Shirts; this is a text condition, not a resolved catalog ID. Live cart matching was not exercised.",
+      "evidence": [
+        "TD-18-before",
+        "TD-20-before",
+        "TD-20-after"
+      ],
+      "checkedAt": "2026-11-02T18:38:45.605Z"
+    },
+    {
+      "id": "TD-21",
+      "sourceRow": 22,
+      "title": "Show form - Immediately",
+      "category": "Timing",
+      "section": "Display",
+      "checklistNotes": "Enum. Baseline for the gated cases below.",
+      "status": "pass",
+      "checks": [],
+      "observation": "Saved draft Designer shows Show form: Immediately.",
+      "evidence": [
+        "00-create-proposal",
+        "00-baseline-display"
+      ],
+      "checkedAt": "2026-11-02T18:08:10.108Z"
+    },
+    {
+      "id": "TD-22",
+      "sourceRow": 23,
+      "title": "Show form - Based on rules",
+      "category": "Timing",
+      "section": "Display",
+      "checklistNotes": "GATE. The four trigger controls only exist once this is set. Test it alone first.",
+      "status": "fail",
+      "checks": [],
+      "observation": "Requested Based on rules with no trigger conditions. Composer explicitly said its editing controls cannot represent the standalone selection and left Show form at Immediately; saved Designer confirms unchanged timing.",
+      "evidence": [
+        "TD-04-confirm-before",
+        "TD-22-30-40-after"
+      ],
+      "checkedAt": "2026-11-02T18:21:24.403Z"
+    },
+    {
+      "id": "TD-23",
+      "sourceRow": 24,
+      "title": "Show form - Only on a custom trigger",
+      "category": "Timing",
+      "section": "Display",
+      "checklistNotes": "Enum + reveals the _klOnsite snippet. Confirm the agent does not claim to have added JS to the site.",
+      "status": "fail",
+      "checks": [],
+      "observation": "Requested custom-trigger-only mode. Composer reported that the change did not persist in its preview; proposal independently still showed Immediately. The incorrect preview was not applied.",
+      "evidence": [
+        "TD-23-before",
+        "TD-23-proposal"
+      ],
+      "checkedAt": "2026-11-02T18:49:20.342Z"
+    },
+    {
+      "id": "TD-24",
+      "sourceRow": 25,
+      "title": "Trigger - When visitor is exiting the page",
+      "category": "Timing",
+      "section": "Display",
+      "checklistNotes": "GATED behind 'Based on rules'. Ask for it directly from a form set to 'Immediately' - the agent must set the parent first, in the same patch batch.",
+      "status": "pass",
+      "checks": [],
+      "observation": "From saved Immediately timing, Composer enabled Based on rules and checked exit intent in one proposal. Both persisted in Designer.",
+      "evidence": [
+        "TD-20-before",
+        "TD-24-after"
+      ],
+      "checkedAt": "2026-11-02T18:38:45.607Z"
+    },
+    {
+      "id": "TD-25",
+      "sourceRow": 26,
+      "title": "Trigger - After time delay",
+      "category": "Timing",
+      "section": "Display",
+      "checklistNotes": "GATED. Also test 0 seconds and a very large value.",
+      "status": "pass",
+      "checks": [],
+      "observation": "5-second and 0-second delays both persisted. 999999 seconds was rejected with a supported range of 0\u201386400; existing 0 remained.",
+      "evidence": [
+        "TD-25-before",
+        "TD-25-after",
+        "TD-35-after",
+        "TD-25-boundaries-after"
+      ],
+      "checkedAt": "2026-11-02T18:44:01.906Z"
+    },
+    {
+      "id": "TD-26",
+      "sourceRow": 27,
+      "title": "Trigger - After visitor has scrolled a certain amount",
+      "category": "Timing",
+      "section": "Display",
+      "checklistNotes": "GATED. Percentage vs pixels - check which the encoded form stores.",
+      "status": "pass",
+      "checks": [],
+      "observation": "50% scroll threshold persisted. A 500-pixel request was refused with a percent-only explanation and 50% was preserved.",
+      "evidence": [
+        "TD-25-after",
+        "TD-25-boundaries-after"
+      ],
+      "checkedAt": "2026-11-02T18:44:01.907Z"
+    },
+    {
+      "id": "TD-27",
+      "sourceRow": 28,
+      "title": "Trigger - After visitor sees a certain number of pages",
+      "category": "Timing",
+      "section": "Display",
+      "checklistNotes": "GATED.",
+      "status": "pass",
+      "checks": [],
+      "observation": "Saved Designer enables page-count trigger with 3 pages.",
+      "evidence": [
+        "TD-25-before",
+        "TD-25-after"
+      ],
+      "checkedAt": "2026-11-02T18:39:50.929Z"
+    },
+    {
+      "id": "TD-28",
+      "sourceRow": 29,
+      "title": "Trigger - and/or combination toggle",
+      "category": "Timing",
+      "section": "Display",
+      "checklistNotes": "GATED, and only meaningful with 2+ triggers. Set two triggers then flip the combinator.",
+      "status": "pass",
+      "checks": [],
+      "observation": "Three active triggers saved with ALL checked, then ANY saved with ALL unchecked. Delay 5, scroll 50%, and page count 3 stayed unchanged.",
+      "evidence": [
+        "TD-25-after",
+        "TD-28-after"
+      ],
+      "checkedAt": "2026-11-02T18:41:17.515Z"
+    },
+    {
+      "id": "TD-29",
+      "sourceRow": 30,
+      "title": "Devices - All devices",
+      "category": "Devices",
+      "section": "Display",
+      "checklistNotes": "Regression for the uppercase fix (app#157720). Re-test all three enum values, not just the one that was broken.",
+      "status": "pass",
+      "checks": [],
+      "observation": "Saved draft Designer shows All devices selected.",
+      "evidence": [
+        "00-create-proposal",
+        "00-baseline-display"
+      ],
+      "checkedAt": "2026-11-02T18:08:10.109Z"
+    },
+    {
+      "id": "TD-30",
+      "sourceRow": 31,
+      "title": "Devices - Desktop only",
+      "category": "Devices",
+      "section": "Display",
+      "checklistNotes": "PASSED previously. Keep as a regression row.",
+      "status": "pass",
+      "checks": [],
+      "observation": "Desktop only radio persisted after Composer edit.",
+      "evidence": [
+        "TD-04-confirm-before",
+        "TD-22-30-40-after"
+      ],
+      "checkedAt": "2026-11-02T18:21:24.402Z"
+    },
+    {
+      "id": "TD-31",
+      "sourceRow": 32,
+      "title": "Devices - Mobile only",
+      "category": "Devices",
+      "section": "Display",
+      "checklistNotes": "Third enum value - was never confirmed, only 'desktop' was in the original bug.",
+      "status": "pass",
+      "checks": [],
+      "observation": "Mobile only persisted; Desktop only and All devices were verified separately.",
+      "evidence": [
+        "TD-25-before",
+        "TD-25-after"
+      ],
+      "checkedAt": "2026-11-02T18:39:50.930Z"
+    },
+    {
+      "id": "TD-32",
+      "sourceRow": 33,
+      "title": "If visitor closes form, show again after X days",
+      "category": "Frequency",
+      "section": "Display",
+      "checklistNotes": "Untested. Try 0 and a decimal.",
+      "status": "pass",
+      "checks": [],
+      "observation": "0 days persisted and Designer warned it would show every page load after closing. Composer rejected 2.5 days as unsupported whole-day input, preserving 0 rather than rounding.",
+      "evidence": [
+        "TD-28-before",
+        "TD-28-after",
+        "TD-35-after"
+      ],
+      "checkedAt": "2026-11-02T18:42:26.832Z"
+    },
+    {
+      "id": "TD-33",
+      "sourceRow": 34,
+      "title": "Don't show again if form was submitted or go-to-URL clicked",
+      "category": "Frequency",
+      "section": "Display",
+      "checklistNotes": "Untested boolean. Not in the original sheet.",
+      "status": "pass",
+      "checks": [],
+      "observation": "Don\u2019t show again after submission/go-to-URL was enabled and persisted checked.",
+      "evidence": [
+        "TD-25-after",
+        "TD-28-after"
+      ],
+      "checkedAt": "2026-11-02T18:41:17.516Z"
+    },
+    {
+      "id": "TD-34",
+      "sourceRow": 35,
+      "title": "Click outside form to close - On desktop",
+      "category": "Click outside",
+      "section": "Display",
+      "checklistNotes": "Untested.",
+      "status": "fail",
+      "checks": [
+        "Explicit retry requested desktop OFF and mobile ON with current saved values stated. Composer claimed both were set, but persisted Designer still showed desktop checked and mobile unchecked."
+      ],
+      "observation": "Requested desktop click-outside OFF. Composer said it was already disabled, but proposal said On desktop only and saved Designer still had On desktop checked. An explicit retry also failed. Root cause was not investigated in code.",
+      "evidence": [
+        "TD-25-after",
+        "TD-28-before",
+        "TD-34-after",
+        "TD-25-boundaries-after"
+      ],
+      "checkedAt": "2026-11-02T18:41:17.517Z"
+    },
+    {
+      "id": "TD-35",
+      "sourceRow": 36,
+      "title": "Click outside form to close - On mobile",
+      "category": "Click outside",
+      "section": "Display",
+      "checklistNotes": "Untested. Independent of the desktop toggle - set one and confirm the other is unchanged.",
+      "status": "fail",
+      "checks": [
+        "Explicit retry requested desktop OFF and mobile ON with current saved values stated. Composer claimed both were set, but persisted Designer still showed desktop checked and mobile unchecked."
+      ],
+      "observation": "Requested mobile click-outside ON while preserving desktop. Composer claimed mobile was already enabled. Saved Designer still has mobile unchecked and desktop checked, so the requested mobile toggle was not applied.",
+      "evidence": [
+        "TD-35-before",
+        "TD-35-close-after",
+        "TD-25-boundaries-after"
+      ],
+      "checkedAt": "2026-11-02T18:42:26.833Z"
+    },
+    {
+      "id": "TD-36",
+      "sourceRow": 37,
+      "title": "Turn on lead capture with Shop",
+      "category": "Lead capture with Shop",
+      "section": "Display",
+      "checklistNotes": "MISSING from the sheet entirely. May require a Shop integration; confirm the agent says so rather than reporting success.",
+      "status": "partial",
+      "checks": [],
+      "observation": "Prerequisite handling passed: Composer did not claim activation. It reported Shopify enabled but Shop Pay unverified and no success-step coupon on this QA form, and left the form unchanged. End-to-end Shop lead capture activation remains unverified on an eligible form with confirmed Shop Pay.",
+      "evidence": [
+        "TD-36-before",
+        "TD-36-38-after"
+      ],
+      "checkedAt": "2026-11-02T18:51:56.114Z"
+    },
+    {
+      "id": "TD-37",
+      "sourceRow": 38,
+      "title": "Custom trigger - _klOnsite openForm snippet",
+      "category": "Custom trigger",
+      "section": "Display",
+      "checklistNotes": "Read-only guidance in the Designer. Confirm the agent explains it instead of attempting an edit.",
+      "status": "pass",
+      "checks": [],
+      "observation": "Composer provided the exact _klOnsite openForm command for RJji9g, matching the Designer snippet, explained use in a site event handler, and explicitly said no website code was modified. It separated guidance from the failed custom-trigger edit (TD-23).",
+      "evidence": [
+        "TD-23-proposal",
+        "TD-34-after"
+      ],
+      "checkedAt": "2026-11-02T18:49:20.343Z"
+    },
+    {
+      "id": "TD-38",
+      "sourceRow": 39,
+      "title": "Display priority",
+      "category": "Display priority",
+      "section": "Display",
+      "checklistNotes": "In the original sheet, still untested. Check interaction with other live forms.",
+      "status": "partial",
+      "checks": [],
+      "observation": "Designer independently shows priority disabled because account-wide collision prevention is off. Composer explained that prerequisite, declined to guess an unverified High mapping, and made no change. High priority persistence and interaction with other live forms remain unverified; they require an eligible account setting and controlled live forms.",
+      "evidence": [
+        "00-baseline-display",
+        "TD-36-before",
+        "TD-36-38-after"
+      ],
+      "checkedAt": "2026-11-02T18:51:56.115Z"
+    },
+    {
+      "id": "TD-39",
+      "sourceRow": 40,
+      "title": "Set two settings in one request",
+      "category": "Cross-cutting",
+      "section": "Both",
+      "checklistNotes": "e.g. 'mobile only, and show after 5 seconds'. JSON Patch is atomic - if either op is invalid the whole batch must be rejected, with reasons.",
+      "status": "pass",
+      "checks": [],
+      "observation": "Valid mobile + 5-second delay (with scroll/page conditions) persisted together. Invalid combined Mobile only + cart count 2.5 was rejected; Composer explained whole-number requirement and neither setting changed: All devices and count >2 remained. This verifies visible request-level atomic behavior, not raw transport internals.",
+      "evidence": [
+        "TD-25-before",
+        "TD-25-after",
+        "TD-39-invalid-before",
+        "TD-39-invalid-display",
+        "TD-39-invalid-count"
+      ],
+      "checkedAt": "2026-11-02T18:44:49.269Z"
+    },
+    {
+      "id": "TD-40",
+      "sourceRow": 41,
+      "title": "Set a targeting and a display setting in one request",
+      "category": "Cross-cutting",
+      "section": "Both",
+      "checklistNotes": "Crosses subtabs. Confirms the agent does not need one request per panel.",
+      "status": "pass",
+      "checks": [],
+      "observation": "One prompt successfully changed Audience (SMS only) and Devices (Desktop only) across Targeting and Display. The separate timing request was honestly reported unsupported and is tracked as TD-22.",
+      "evidence": [
+        "TD-04-confirm-after",
+        "TD-22-30-40-after"
+      ],
+      "checkedAt": "2026-11-02T18:21:24.404Z"
+    },
+    {
+      "id": "TD-41",
+      "sourceRow": 42,
+      "title": "Contradictory request",
+      "category": "Cross-cutting",
+      "section": "Both",
+      "checklistNotes": "e.g. 'show immediately, but only after a 10 second delay'. The agent should ask or refuse, not pick one silently.",
+      "status": "pass",
+      "checks": [],
+      "observation": "Composer asked \u201cWhich timing should the QA form use?\u201d with explicit Immediately versus After a 10-second delay options; it did not silently select a conflicting interpretation.",
+      "evidence": [
+        "TD-41-before",
+        "TD-41-clarification"
+      ],
+      "checkedAt": "2026-11-02T18:45:37.958Z"
+    },
+    {
+      "id": "TD-42",
+      "sourceRow": 43,
+      "title": "Revert a setting to its default",
+      "category": "Cross-cutting",
+      "section": "Both",
+      "checklistNotes": "Ask to undo a change made in the previous turn. Tests removal patches, not just replacement.",
+      "status": "pass",
+      "checks": [],
+      "observation": "Reverted earlier frequency change to default 5 days and removed both URL include/exclude rules. Saved Designer shows 5 days and both URL toggles off with no rule rows. Raw JSON Patch operations were not inspected.",
+      "evidence": [
+        "TD-42-before",
+        "TD-42-targeting-after",
+        "TD-42-display-after"
+      ],
+      "checkedAt": "2026-11-02T18:50:26.936Z"
+    }
+  ],
+  "formId": "RJji9g",
+  "formName": "Composer QA - Targeting and Display - 2026-11-02",
+  "completedAt": "2026-11-02T18:51:56.116Z",
+  "findings": [
+    "Seven failed checklist cases: overlapping include/exclude audience accepted (TD-07); negative cart count persisted (TD-19); UTM targeting unavailable (TD-17); standalone rule mode and custom-trigger mode not applied (TD-22, TD-23); desktop and mobile click-outside changes did not persist despite success claims (TD-34, TD-35).",
+    "Audience enum edits, real list/segment resolution, URL operators and row removal, country targeting, UTM storage, ordinary cart conditions, timing triggers, all device values, suppression, combined-update rejection, clarification, and restoring defaults worked within the recorded scope.",
+    "Three partial cases remain: URL raw serialization comparison (TD-08), Shop activation prerequisites (TD-36), and priority with other live forms (TD-38). All 42 rows were exercised or assessed; no row is labeled passed from the previous checklist alone.",
+    "Tests used the dedicated unpublished draft RJji9g in hosted WeAFEE. Composer conversation updates intermittently lagged; refreshed proposals and saved Designer values determined results. No subscription submission or website code changes were performed."
+  ]
+}

@@ -1,0 +1,100 @@
+- main:
+  - navigation "Breadcrumb":
+    - list:
+      - link "Signup forms":
+        - /url: /forms
+      - listitem: /
+      - link "Composer QA - Targeting and Display - 2026-11-02":
+        - /url: /forms/RJji9g
+  - generic: Proposal
+  - button "Close preview":
+    - generic: Close
+  - button "View form":
+    - generic: View form
+  - heading "Form details" [level=2]
+  - term:
+    - generic: Name
+  - definition: Composer QA - Targeting and Display - 2026-11-02
+  - term:
+    - generic: Form type
+  - definition: Popup
+  - heading "Targeting" [level=2]
+  - heading "Audience" [level=2]
+  - term:
+    - generic: Show to
+  - definition: Shown to text messaging-only subscribers
+  - heading "URLs" [level=2]
+  - term:
+    - generic: Show on
+  - definition: Only on */qa-b*, except */checkout*
+  - heading "Cart contents" [level=2]
+  - term:
+    - generic: Cart value
+  - definition: More than $50.00
+  - term:
+    - generic: Number of items
+  - definition: More than 2 items
+  - term:
+    - generic: Product
+  - definition: Category is Shirts
+  - heading "Location" [level=2]
+  - term:
+    - generic: Locations
+  - definition: Only in United States and Canada, except France
+  - heading "Display" [level=2]
+  - heading "Display priority" [level=2]
+  - term:
+    - generic: Priority
+  - definition: Medium (default)
+  - heading "Timing" [level=2]
+  - term:
+    - generic: Show form
+  - definition: Immediately
+  - heading "Frequency" [level=2]
+  - term:
+    - generic: If visitor closes form, show again after
+  - definition: 0 days
+  - term:
+    - generic: After submission
+  - definition: Not shown again if the form was submitted or a go to URL button was clicked
+  - heading "Devices" [level=2]
+  - term:
+    - generic: Show on
+  - definition: Desktop and mobile
+  - term:
+    - generic: Click outside form to close
+  - definition: On desktop only
+  - group "Step":
+    - button "Email Opt-in":
+      - generic: Email Opt-in
+    - button "Success":
+      - generic: Success
+  - generic: Device to preview
+  - group "Device to preview":
+    - generic: Device to preview
+    - radiogroup:
+      - radio "Desktop" [checked]
+      - generic: Desktop
+      - radio "Mobile"
+      - generic: Mobile
+  - dialog "POPUP Form":
+    - button "Close dialog":
+    - heading "Join our newsletter" [level=1]
+    - paragraph: Sign up for news and updates delivered to your inbox.
+    - generic: Email
+    - textbox "Email"
+    - button "Subscribe"
+    - button "No, thanks"
+    - alert
+- button "Create popup signup form in Daniel Yun Test Account":
+  - generic: Create popup signup form in Daniel Yun Test Account
+- generic: "1"
+- generic: 1 unread conversation
+- button "Customize":
+  - generic: Customize
+- button "Start a new chat":
+  - generic: Start a new chat
+- button "Expand":
+  - generic: Expand
+- button "Close":
+  - generic: Close

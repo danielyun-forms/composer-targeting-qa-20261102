@@ -1,0 +1,72 @@
+- heading "Targeting & display behavior" [level=6]
+- button "Widen panel":
+  - generic: Widen panel
+- button "Collapse panel":
+  - generic: Collapse panel
+- button:
+  - generic: Scroll left
+- tablist:
+  - tab "Targeting":
+    - generic: Targeting
+  - tab "Display" [selected]:
+    - generic: Display
+- button:
+  - generic: Scroll right
+- region "Display priority":
+  - heading "Display priority" [level=2]
+  - text: Display priority is unavailable because “Don't show multiple forms at the same time” is off in your
+  - link "form settingsOpen in new tab":
+    - /url: /forms?form_settings=1
+    - text: form settings
+    - img "Open in new tab"
+  - text: .
+  - paragraph:
+    - text: Determines which form displays first when multiple forms are set to show at the same time.
+    - link "Learn more about form priority orderOpen in new tab":
+      - /url: https://help.klaviyo.com/hc/en-us/articles/4413544555547#h_39db6287e840
+      - text: Learn more about form priority order
+      - img "Open in new tab"
+  - generic: Display priority
+  - combobox "Display priority" [disabled]:
+    - generic: Medium (default)
+- region "Timing":
+  - heading "Timing" [level=2]
+  - generic: Show form
+  - combobox "Show form":
+    - generic: Immediately
+- region "Frequency":
+  - heading "Frequency" [level=2]
+  - generic: If visitor closes form, show again after
+  - textbox "If visitor closes form, show again after": "5"
+  - generic: days
+  - checkbox "Don’t show again if form was submitted or if go to URL button was clicked" [checked]
+  - generic: Don’t show again if form was submitted or if go to URL button was clicked
+- region "Devices":
+  - heading "Devices" [level=2]
+  - generic: Devices
+  - group "Devices":
+    - generic: Devices
+    - radiogroup:
+      - radio "All devices" [checked]
+      - generic: All devices
+      - radio "Desktop only"
+      - generic: Desktop only
+      - radio "Mobile only"
+      - generic: Mobile only
+- region "Click outside form to close":
+  - heading "Click outside form to close" [level=2]
+  - generic: Click outside form to close
+  - group "Click outside form to close":
+    - generic: Click outside form to close
+    - checkbox "On desktop" [checked]
+    - generic: On desktop
+    - checkbox "On mobile"
+    - generic: On mobile
+- region "Custom trigger":
+  - heading "Custom trigger" [level=2]
+  - generic: Open the form based on any condition, such as on a button click or in your own code.
+  - generic: window._klOnsite = window._klOnsite || []; window._klOnsite.push(['openForm', 'RJji9g']);
+  - link "See documentation detailsOpen in new tab":
+    - /url: https://help.klaviyo.com/hc/en-us/articles/4418052317339
+    - text: See documentation details
+    - img "Open in new tab"
