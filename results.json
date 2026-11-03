@@ -277,14 +277,23 @@
       "category": "UTM parameters",
       "section": "Targetting",
       "checklistNotes": "Untested. Needs key and value pairs; check an empty value is rejected.",
-      "status": "fail",
-      "checks": [],
-      "observation": "Composer explicitly could not configure utm_source=qa_composer because its editing tools do not expose UTM conditions. Saved Designer shows Show based on UTM parameters still off. Empty-value validation cannot be exercised through Composer while this setting is unsupported.",
+      "status": "unsupported",
+      "checks": [
+        "Reclassified on 2026-11-03 following the project owner\u2019s schema clarification. Original browser evidence is preserved; this correction is not a new test run."
+      ],
+      "observation": "Unsupported capability; Composer refused correctly. UTMMatch is commented out of the Trigger union, so dedicated UTM targeting has no encoded representation. Composer correctly declined to configure utm_source=qa_composer, and the saved Designer remained unchanged. This is not a defect. Empty-value validation is not applicable until an encoded UTM targeting capability exists.",
       "evidence": [
         "TD-16-before",
         "TD-16-utm"
       ],
-      "checkedAt": "2026-11-02T18:32:05.317Z"
+      "checkedAt": "2026-11-02T18:32:05.317Z",
+      "classification": "missing_capability_correct_refusal",
+      "reclassification": {
+        "date": "2026-11-03",
+        "previousStatus": "fail",
+        "basis": "Project owner clarification: UTMMatch is commented out of the Trigger union.",
+        "behaviorVerdict": "correct_refusal"
+      }
     },
     {
       "id": "TD-18",
@@ -708,9 +717,11 @@
   "formName": "Composer QA - Targeting and Display - 2026-11-02",
   "completedAt": "2026-11-02T18:51:56.116Z",
   "findings": [
-    "Seven failed checklist cases: overlapping include/exclude audience accepted (TD-07); negative cart count persisted (TD-19); UTM targeting unavailable (TD-17); standalone rule mode and custom-trigger mode not applied (TD-22, TD-23); desktop and mobile click-outside changes did not persist despite success claims (TD-34, TD-35).",
+    "Six failed checklist cases: overlapping include/exclude audience accepted (TD-07); negative cart count persisted (TD-19); standalone rule mode and custom-trigger mode not applied (TD-22, TD-23); desktop and mobile click-outside changes did not persist despite success claims (TD-34, TD-35).",
+    "TD-17 is an unsupported capability, not a defect: UTMMatch is commented out of the Trigger union and has no encoded representation. Composer refused correctly. Reclassified on 2026-11-03; the original browser evidence is unchanged.",
     "Audience enum edits, real list/segment resolution, URL operators and row removal, country targeting, UTM storage, ordinary cart conditions, timing triggers, all device values, suppression, combined-update rejection, clarification, and restoring defaults worked within the recorded scope.",
     "Three partial cases remain: URL raw serialization comparison (TD-08), Shop activation prerequisites (TD-36), and priority with other live forms (TD-38). All 42 rows were exercised or assessed; no row is labeled passed from the previous checklist alone.",
     "Tests used the dedicated unpublished draft RJji9g in hosted WeAFEE. Composer conversation updates intermittently lagged; refreshed proposals and saved Designer values determined results. No subscription submission or website code changes were performed."
-  ]
+  ],
+  "revisedDate": "2026-11-03"
 }
